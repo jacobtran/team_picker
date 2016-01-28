@@ -1,0 +1,31 @@
+<h1>Welcome to Team Picker App</h1>
+
+<% if @error %>
+  <h2>Number of teams must be between 1 and the number of members</h2>
+<% end %>
+
+<form action="/team_picker" method="POST">
+  <div>
+    <label for="names">Names</label>
+    <textarea name="names" id="names"><%= session[:names] %></textarea>
+  </div>
+  <div>
+    <label for="method">Method</label>
+    <input type="radio" name="method" value="team_count" <% if session[:method]=="team_count" %>checked<%end%>>Team Count
+    <input type="radio" name="method" value="per_team" <% if session[:method]=="per_team" %>checked<%end%>> Number Per Team
+  </div>
+  <div>
+    <label for="number">Number</label>
+    <input type="text" name="number" value="<%= session[:number] %>">
+  </div>
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+
+<% if @result %>
+  <% @result.each do |team| %>
+    <h2><%= team %></h2>
+  <% end %>
+<% end %>
